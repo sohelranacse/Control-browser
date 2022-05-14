@@ -64,5 +64,5 @@ if __name__ == '__main__':
 
     print(driver.current_url)
 
-    # driver.close()
-    # driver.quit()
+    driver.close()
+    driver.quit()

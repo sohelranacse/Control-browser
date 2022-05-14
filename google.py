@@ -8,7 +8,7 @@ if __name__ == '__main__':
     start = int(input())
     start_len = len(str(start))
     # here 0 dosen`t not count
-    if(start_len < 6 or start_len == 9 or start_len == 11):
+    if(start_len < 6 or start_len == 7 or start_len == 9):
         print("Print Enter at least 7 or 9 digit = "+str(start_len+1))
         sys.exit()
 
@@ -41,24 +41,31 @@ if __name__ == '__main__':
 
     # file operation
     for x in range(n):
-        f = open("number.txt", "a")
 
         email = "0"+str(int(start)*trigger+x)
         driver.refresh()
 
-        driver.find_element_by_name('identifier').send_keys(email)
-        driver.find_element_by_css_selector('.VfPpkd-vQzf8d').click()
+        if(len(email) == 11):  # 11 digit support
 
-        time.sleep(2)
-        if(driver.current_url == url):  # unsaved
-            print(email)
-            driver.refresh()
-        else:  # saved data
-            f.write(email + "\n")
-            print(email+" Yes")
-            driver.back()
+            driver.find_element_by_name('identifier').send_keys(email)
+            driver.find_element_by_css_selector('.VfPpkd-vQzf8d').click()
 
-        f.close()
+            time.sleep(2)
+            f = open("number.txt", "a")
+            if(driver.current_url == url):  # unsaved
+                print(email)
+                driver.refresh()
+            else:  # saved data
+                f.write(email + "\n")
+                print(email+" Yes")
+                driver.back()
+
+            f.close()
+
+        else:
+            sys.exit()
+            # driver.close()
+            # driver.quit()
 
     driver.close()
     driver.quit()
